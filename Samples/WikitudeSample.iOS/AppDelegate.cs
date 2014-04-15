@@ -24,11 +24,9 @@ namespace WikitudeSample.iOS
         //
         public override bool FinishedLaunching (UIApplication app, NSDictionary options)
         {
-            var foo = global::Wikitude.WTARMode.Geo;
-
             window = new UIWindow (UIScreen.MainScreen.Bounds);
-            
-            viewController = new WikitudeSample_iOSViewController ();
+
+			viewController = new WikitudeSample_iOSViewController ();
             window.RootViewController = viewController;
             window.MakeKeyAndVisible ();
             
