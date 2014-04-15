@@ -2,10 +2,11 @@ using System;
 
 namespace Wikitude
 {
-    public enum WTARMode {
-        Geo,
-        IR
-    }
+	public enum WTAugmentedRealityMode {
+		Geo = 1,
+		IR,
+		Both
+	}
 
     public enum WTScreenshotCaptureMode {
         Cam,
@@ -24,4 +25,3 @@ namespace Wikitude
         None = 0
     }
 }
-

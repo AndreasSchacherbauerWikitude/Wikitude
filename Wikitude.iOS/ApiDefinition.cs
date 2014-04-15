@@ -11,17 +11,26 @@ namespace Wikitude {
     [Model, BaseType (typeof (NSObject))]
     public partial interface WTArchitectViewDelegate {
 
+		[Export ("architectView:didFinishLoad:")]
+		void DidFinishLoad (WTArchitectView architectView, NSUrl url);
+
+		[Export ("architectView:didFailLoadWithError:")]
+		void DidFailLoadWithError (WTArchitectView architectView, NSError error);
+
         [Export ("architectView:invokedURL:")]
         void InvokedURL (WTArchitectView architectView, NSUrl url);
-
-        [Export ("architectView:didFailLoadWithError:")]
-        void DidFailLoadWithError (WTArchitectView architectView, NSError error);
 
         [Export ("architectView:didCaptureScreenWithContext:")]
         void DidCaptureScreenWithContext (WTArchitectView architectView, NSDictionary context);
 
         [Export ("architectView:didFailCaptureScreenWithError:")]
         void DidFailCaptureScreenWithError (WTArchitectView architectView, NSError error);
+
+		[Export ("presentingViewControllerForViewControllerPresentationInArchitectView:")]
+		UIViewController PresentingViewController (WTArchitectView architectView);
+
+		[Export ("architectView:willPresentViewController:onViewController:")]
+		void WillPresentViewController (WTArchitectView architectView, UIViewController presentedViewController, UIViewController presentingViewController);
     }
 
     [BaseType (typeof (UIView))]
@@ -54,8 +63,8 @@ namespace Wikitude {
         [Export ("shouldWebViewRotate")]
         bool ShouldWebViewRotate { get; set; }
 
-        [Static, Export ("isDeviceSupportedForARMode:")]
-        bool IsDeviceSupportedForARMode (WTARMode supportedARMode);
+		[Static, Export ("isDeviceSupportedForAugmentedRealityMode:")]
+		bool IsDeviceSupportedForAugmentedRealityMode (WTAugmentedRealityMode supportedARMode);
 
         [Export ("initializeWithKey:motionManager:")]
         void InitializeWithKey (string key, CMMotionManager motionManager);
