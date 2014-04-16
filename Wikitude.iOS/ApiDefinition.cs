@@ -36,50 +36,56 @@ namespace Wikitude {
     [BaseType (typeof (UIView))]
     public partial interface WTArchitectView {
 
-        [Field ("kWTScreenshotBundleDirectoryKey", "__Internal")]
-        NSString WTScreenshotBundleDirectoryKey { get; }
+		[Static, Export ("isDeviceSupportedForAugmentedRealityMode:")]
+		bool IsDeviceSupportedForAugmentedRealityMode (WTAugmentedRealityMode supportedARMode);
 
-        [Field ("kWTScreenshotSaveModeKey", "__Internal")]
-        NSString WTScreenshotSaveModeKey { get; }
+		[Static, Export ("versionNumber")]
+		string VersionNumber { get; }
 
-        [Field ("kWTScreenshotCaptureModeKey", "__Internal")]
-        NSString WTScreenshotCaptureModeKey { get; }
+		[Export ("initWithFrame:motionManager:augmentedRealityMode:")]
+		IntPtr Constructor (System.Drawing.RectangleF frame, CMMotionManager motionManagerOrNil, WTAugmentedRealityMode augmentedRealityMode);
 
-        [Field ("kWTScreenshotImageKey", "__Internal")]
-        NSString WTScreenshotImageKey { get; }
+		[Export ("initializeWithKey:motionManager:")]
+		void InitializeWithKey (string key, CMMotionManager motionManager);
 
         [Export ("delegate", ArgumentSemantic.Assign)]
         WTArchitectViewDelegate Delegate { get; set; }
 
+		[Export ("desiredLocationAccuracy")]
+		Double DesiredLocationAccuracy { get; set; }
+
+		[Export ("desiredDistanceFilter")]
+		Double DesiredDistanceFilter { get; set; }
+
+		[Export ("shouldWebViewRotate")]
+		bool ShouldWebViewRotate { get; set; }
+
+		[Export ("setLicenseKey:")]
+		void SetLicenseKey (string licenseKey);
+
+		[Export ("loadArchitectWorldFromUrl:")]
+		void LoadArchitectWorldFromUrl (NSUrl architectWorldUrl);
+
+		[Export ("stop")]
+		void Stop ();
+
+		[Export ("start")]
+		void Start ();
+
         [Export ("isRunning")]
         bool IsRunning { get; }
-
-        [Export ("desiredLocationAccuracy")]
-        Double DesiredLocationAccuracy { get; set; }
-
-        [Export ("desiredDistanceFilter")]
-        Double DesiredDistanceFilter { get; set; }
-
-        [Export ("shouldWebViewRotate")]
-        bool ShouldWebViewRotate { get; set; }
-
-		[Static, Export ("isDeviceSupportedForAugmentedRealityMode:")]
-		bool IsDeviceSupportedForAugmentedRealityMode (WTAugmentedRealityMode supportedARMode);
-
-        [Export ("initializeWithKey:motionManager:")]
-        void InitializeWithKey (string key, CMMotionManager motionManager);
-
-        [Export ("loadArchitectWorldFromUrl:")]
-        void LoadArchitectWorldFromUrl (NSUrl architectWorldUrl);
 
         [Export ("callJavaScript:")]
         void CallJavaScript (string javaScript);
 
+		[Export ("captureScreenWithMode:usingSaveMode:saveOptions:context:")]
+		void CaptureScreen (WTScreenshotCaptureMode captureMode, WTScreenshotSaveMode saveMode, WTScreenshotSaveOptions options, NSDictionary context);
+
         [Export ("injectLocationWithLatitude:longitude:altitude:accuracy:")]
-        void InjectLocationWithLatitude (Double latitude, Double longitude, Double altitude, Double accuracy);
+        void InjectLocation (Double latitude, Double longitude, Double altitude, Double accuracy);
 
         [Export ("injectLocationWithLatitude:longitude:accuracy:")]
-        void InjectLocationWithLatitude (Double latitude, Double longitude, Double accuracy);
+		void InjectLocation (Double latitude, Double longitude, Double accuracy);
 
         [Export ("useInjectedLocation")]
         bool UseInjectedLocation { set; }
@@ -90,9 +96,6 @@ namespace Wikitude {
         [Export ("cullingDistance")]
         float CullingDistance { get; set; }
 
-        [Export ("versionNumber")]
-        string VersionNumber { get; }
-
         [Export ("clearCache")]
         void ClearCache ();
 
@@ -101,17 +104,22 @@ namespace Wikitude {
 
         [Export ("isRotatingToInterfaceOrientation")]
         bool IsRotatingToInterfaceOrientation { get; }
-
-        [Export ("stop")]
-        void Stop ();
-
-        [Export ("start")]
-        void Start ();
-
+		       
         [Export ("motionManager")]
         CMMotionManager MotionManager { get; }
 
-        [Export ("captureScreenWithMode:usingSaveMode:saveOptions:context:")]
-        void CaptureScreenWithMode (WTScreenshotCaptureMode captureMode, WTScreenshotSaveMode saveMode, WTScreenshotSaveOptions options, NSDictionary context);
+
+
+		[Field ("kWTScreenshotBundleDirectoryKey", "__Internal")]
+		NSString WTScreenshotBundleDirectoryKey { get; }
+
+		[Field ("kWTScreenshotSaveModeKey", "__Internal")]
+		NSString WTScreenshotSaveModeKey { get; }
+
+		[Field ("kWTScreenshotCaptureModeKey", "__Internal")]
+		NSString WTScreenshotCaptureModeKey { get; }
+
+		[Field ("kWTScreenshotImageKey", "__Internal")]
+		NSString WTScreenshotImageKey { get; }
     }
 }
