@@ -32,6 +32,17 @@ namespace WikitudeSample.iOS
             
             return true;
         }
+
+		// Handle active state changes to start & stop the Wikitude SDK rendering appropriate
+		public override void OnActivated (UIApplication application)
+		{
+			viewController.startAR ();
+		}
+
+		public override void OnResignActivation (UIApplication application)
+		{
+			viewController.stopAR ();
+		}
     }
 }
 
